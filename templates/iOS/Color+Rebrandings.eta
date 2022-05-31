@@ -1,0 +1,19 @@
+import SwiftUI
+
+public extension Color {
+
+  static var rebrandings: GreenLiteRebrandingLitePalette {
+    GreenLiteRebrandingLitePalette()
+  }
+
+  struct GreenLiteRebrandingLitePalette { }
+}
+
+public extension Color.GreenLiteRebrandingLitePalette {
+<% it.rebranding.semantics.forEach(function(semantic){ %>
+  var <%= it.func.camelCaseFromHyphenCase(semantic.name) %>: Color {
+    GreenLiteRebrandingLiteColors.<%= it.func.camelCaseFromHyphenCase(semantic.name) %>.color
+  }
+
+<% }) %>
+}

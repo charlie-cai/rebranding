@@ -1,0 +1,25 @@
+package com.xero.lite.designkit.theme
+
+import androidx.compose.ui.graphics.Color
+
+@Suppress("LongParameterList")
+class GreenLiteRebrandingLiteColors internal constructor(
+<% it.rebranding.semantics.forEach(function(semantic){ %>
+    val <%= it.func.camelCaseFromHyphenCase(semantic.name) %>: Color,
+<% }) %>
+)
+
+@SuppressLint("WrongColorUsage")
+internal val GreenLiteRebrandingLiteColorsLight= GreenLiteRebrandingLiteColors(
+    <% it.rebranding.semantics.forEach(function(semantic){ %>
+    <%= it.func.camelCaseFromHyphenCase(semantic.name) %> = GreenLiteRebrandingLiteColorPalette.<%= it.func.uppercaseFirstChar(semantic.tokenCategoryLight) %>.<%= it.func.camelCaseFromHyphenCase(semantic.tokenLight) %>,
+    <% }) %>
+)
+
+@SuppressLint("WrongColorUsage")
+internal val GreenLiteRebrandingLiteColorsDark= GreenLiteRebrandingLiteColors(
+    <% it.rebranding.semantics.forEach(function(semantic){ %>
+    <%= it.func.camelCaseFromHyphenCase(semantic.name) %> = GreenLiteRebrandingLiteColorPalette.<%= it.func.uppercaseFirstChar(semantic.tokenCategoryDark) %>.<%= it.func.camelCaseFromHyphenCase(semantic.tokenDark)%>,
+    <% }) %>
+)
+
