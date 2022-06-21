@@ -65,7 +65,6 @@ export class IOSService {
     }
 
     private static async makeColorContentsJson(eta: any, color: any, name: string) {
-        console.log(color);
         if (color.light == null && color.dark == null) {
             color = {
                 light: {
