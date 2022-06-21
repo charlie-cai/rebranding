@@ -1,0 +1,19 @@
+import SwiftUI
+
+public extension Color {
+
+  static var go: Palette {
+    Palette()
+  }
+
+  struct Palette { }
+}
+
+public extension Color.Palette {
+<% it.colors.forEach(function(color){ %>
+  var <%= it.func.camelCaseFromHyphenCase(color.name) %>: Color {
+    GoColor.<%= it.func.camelCaseFromHyphenCase(color.name) %>.color
+  }
+
+<% }) %>
+}

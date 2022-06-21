@@ -3,27 +3,80 @@ import { ColorSemantic, ColorToken, ColorTokenCategory, FigmaNode, Rebranding } 
 import { ColorUtil, EnvUtil, FileUtil } from "../utils";
 
 const axios = require('axios');
-const REBRANDING_JSON = 'rebranding.json';
+const REBRANDING_JSON = 'color.json';
 
 export class FigmaService {
 
     static async syncToJson() {
         const file = await this.fetchFile();
-        const styles: [string, FigmaNode][] = Object.entries(file.styles);
+        // const styles: [string, FigmaNode][] = Object.entries(file.styles);
         const page_id = EnvUtil.get(Env.Page_Id);
         const page = file.document.children.find((page: any) => page.id === page_id);
-        const nodes = page.children;
-        const color_tokens: FigmaNode[] = [];
-        this.parseColorTokens(color_tokens, styles, nodes);
-        const unique_color_tokens = this.removeDuplicateColorTokens(color_tokens);
-        const standardized_color_tokens = this.standardizeColorTokenNames(unique_color_tokens);
-        const color_token_categories = this.parseToColorTokenCategories(standardized_color_tokens);
-        const groups = nodes.filter((node: FigmaNode) => node.type === FigmaNodeType.Group);
-        const color_semantics = this.parseToColorSemantics(groups, file.styles);
-        const rebranding: Rebranding = {
-            tokenCategories: color_token_categories,
-            semantics: color_semantics
-        }
+        const color_categories = page.children.find((node: any) => node.id === '924:46799')
+            .children.find((node: any) => node.id === '924:47720')
+            .children.find((node: any) => node.id === '1842:106647')
+            .children.find((node: any) => node.id === '1842:106648')
+            .children.filter((color_category: any) => {
+                return color_category.type === 'FRAME';
+            });
+
+        const rebranding: any = { groups: [] };
+        color_categories.forEach((color_category: any) => {
+
+            const color_category_name = color_category.children[0].children[0].name;
+
+            const group: any = {
+                name: color_category_name,
+                colors: []
+            }
+
+            color_category.children.shift();
+            color_category.children.forEach((semantic_color: any) => {
+                const semantic_color_name = semantic_color.children[0]
+                    .children[0]
+                    .children[0]
+                    .children[0]
+                    .children[0]
+                    .characters;
+                const semantic_color_description = semantic_color.children[0]
+                    .children[0]
+                    .children[1]
+                    .children[0]
+                    .characters;
+                const semantic_color_light = semantic_color.children[0]
+                    .children[0]
+                    .children[2]
+                    .characters.split('\n')
+                    .find((word: any) => word.startsWith('#'));
+                const semantic_color_dark = semantic_color.children[1]
+                    .children[0]
+                    .children[2]
+                    .characters.split('\n')
+                    .find((word: any) => word.startsWith('#'));
+
+                group.colors.push({
+                    name: semantic_color_name,
+                    description: semantic_color_description,
+                    light: semantic_color_light,
+                    dark: semantic_color_dark
+                });
+            });
+
+            rebranding.groups.push(group);
+
+        });
+
+        // const color_tokens: FigmaNode[] = [];
+        // this.parseColorTokens(color_tokens, styles, nodes);
+        // const unique_color_tokens = this.removeDuplicateColorTokens(color_tokens);
+        // const standardized_color_tokens = this.standardizeColorTokenNames(unique_color_tokens);
+        // const color_token_categories = this.parseToColorTokenCategories(standardized_color_tokens);
+        // const groups = nodes.filter((node: FigmaNode) => node.type === FigmaNodeType.Group);
+        // const color_semantics = this.parseToColorSemantics(groups, file.styles);
+        // const rebranding: Rebranding = {
+        //     tokenCategories: color_token_categories,
+        //     semantics: color_semantics
+        // }
         FileUtil.writeToFile(JSON.stringify(rebranding, null, 2), REBRANDING_JSON);
     }
 
@@ -122,11 +175,10 @@ export class FigmaService {
                 if (foundStyles)
                     color_tokens.push({
                         ...foundStyles[1],
-                        color: ColorUtil.rgbaToHex(
+                        color: ColorUtil.rgbToHex(
                             Math.round(red * 255),
                             Math.round(green * 255),
-                            Math.round(blue * 255),
-                            Math.round(alpha * 255)),
+                            Math.round(blue * 255)),
                     });
             }
             if (node.children !== undefined && Array.isArray(node.children)) {

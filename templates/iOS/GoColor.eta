@@ -1,0 +1,17 @@
+import SwiftUI
+
+enum GoColor: String, CaseIterable {
+<% it.colors.forEach(function(color){ %>
+  case <%= it.func.camelCaseFromHyphenCase(color.name) %> = "<%= color.name.toLowerCase() %>"
+<% }) %>
+}
+
+extension GoColor {
+  public var uiColor: UIColor {
+    UIColor.named(self.rawValue)
+  }
+
+  public var color: Color {
+    Color(self.rawValue, bundle: bundle)
+  }
+}

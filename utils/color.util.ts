@@ -1,21 +1,42 @@
 export class ColorUtil {
 
-    static parseHexColor(hex: string) {
-        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-            alpha: parseInt(result[1], 16) / 255,
-            red: parseInt(result[2], 16) / 255,
-            green: parseInt(result[3], 16) / 255,
-            blue: parseInt(result[4], 16) / 255
-        } : null;
+    // static parseRGBAHexColor(hex: string) {
+    //     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    //     return result ? {
+    //         alpha: parseInt(result[1], 16) / 255,
+    //         red: parseInt(result[2], 16) / 255,
+    //         green: parseInt(result[3], 16) / 255,
+    //         blue: parseInt(result[4], 16) / 255
+    //     } : null;
+    // }
+
+    static parseRGBHexColor(hex: string) {
+
+        const red = `0x${hex.substring(1, 3)}`;
+        const green = `0x${hex.substring(3, 5)}`;
+        const blue = `0x${hex.substring(5, 7)}`;
+
+        return {
+            red,
+            green,
+            blue
+        }
     }
 
-    static rgbaToHex(red: number, green: number, blue: number, alpha: number) {
+    // static rgbaToHex(red: number, green: number, blue: number, alpha: number) {
+    //     const componentToHex = (c: number) => {
+    //         var hex = c.toString(16);
+    //         return hex.length == 1 ? "0" + hex : hex;
+    //     }
+    //     return ('#' + componentToHex(alpha) + componentToHex(red) + componentToHex(green) + componentToHex(blue)).toUpperCase();
+    // }
+
+    static rgbToHex(red: number, green: number, blue: number) {
         const componentToHex = (c: number) => {
             var hex = c.toString(16);
             return hex.length == 1 ? "0" + hex : hex;
         }
-        return ('#' + componentToHex(alpha) + componentToHex(red) + componentToHex(green) + componentToHex(blue)).toUpperCase();
+        return ('#' + componentToHex(red) + componentToHex(green) + componentToHex(blue)).toUpperCase();
     }
 
     static sharpTo0x(color: string): string {

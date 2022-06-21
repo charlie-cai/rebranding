@@ -1,0 +1,231 @@
+{
+  "groups": [
+    {
+      "name": "action",
+      "colors": [
+        {
+          "name": "action-primary",
+          "description": "Primary background color used for most buttons",
+          "light": "#0078C8",
+          "dark": "#13B5EA"
+        },
+        {
+          "name": "action-tertiary-go",
+          "description": "Background color for secondary buttons",
+          "light": "#FFFFFF",
+          "dark": "#081622"
+        },
+        {
+          "name": "action-icon-primary-go",
+          "description": "Active Icon color on the bottom navigation bar",
+          "light": "#446383",
+          "dark": "#BED2DF"
+        },
+        {
+          "name": "action-icon-secondary-go",
+          "description": "Inactive Icon color on the bottom navigation bar",
+          "light": "#99B0C7",
+          "dark": "#5B789A"
+        }
+      ]
+    },
+    {
+      "name": "sentiment",
+      "colors": [
+        {
+          "name": "sentiment-negative-go",
+          "description": "Accent color for negative states ",
+          "light": "#B22939",
+          "dark": "#FF8A96"
+        },
+        {
+          "name": "sentiment-positive",
+          "description": "Accent color for positive states ",
+          "light": "#008A3E",
+          "dark": "#02C55A"
+        },
+        {
+          "name": "sentiment-warning",
+          "description": "Accent color for warning states ",
+          "light": "#B25C00",
+          "dark": "#FF9524"
+        },
+        {
+          "name": "sentiment-neutral-go",
+          "description": "Accent color for neutral states ",
+          "light": "#0078C8",
+          "dark": "#13B5EA"
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "colors": [
+        {
+          "name": "content-primary ",
+          "description": "Primary color used for most text",
+          "light": "#081622",
+          "dark": "#FFFFFF"
+        },
+        {
+          "name": "content-secondary",
+          "description": "Secondary text color used for titles",
+          "light": "#284867",
+          "dark": "#DCE7EF"
+        },
+        {
+          "name": "content-tertiary ",
+          "description": "Primary color for input titles and card descriptions",
+          "light": "#5B789A",
+          "dark": "#99B0C7"
+        }
+      ]
+    },
+    {
+      "name": "background",
+      "colors": [
+        {
+          "name": "background-primary",
+          "description": "Primary background color used for most modals and pop-ups",
+          "light": "#FFFFFF",
+          "dark": "#081622"
+        },
+        {
+          "name": "background-secondary-go",
+          "description": "The default, primary background color of most pages",
+          "light": "#FAFAFA",
+          "dark": "#081622"
+        },
+        {
+          "name": "background-tertiary-go",
+          "description": "Background for primary nav",
+          "light": "#ECF2F6",
+          "dark": "#102D47"
+        },
+        {
+          "name": "background-card-go",
+          "description": "Primary background color used on cards",
+          "light": "#FFFFFF",
+          "dark": "#284867"
+        },
+        {
+          "name": "background-neutral-go",
+          "description": "Primary background color used on cards and banners with neutral sentiment",
+          "light": "#E7F6FE",
+          "dark": "#002A46"
+        },
+        {
+          "name": "background-negative-go",
+          "description": "Primary background color used on cards and banners with negative sentiment",
+          "light": "#FFF0F1",
+          "dark": "#64111B"
+        },
+        {
+          "name": "background-positive-go",
+          "description": "Primary background color used on cards and banners with positive sentiment",
+          "light": "#E7F8E9",
+          "dark": "#00381A"
+        },
+        {
+          "name": "background-input-go",
+          "description": "Background color for primary inputs",
+          "light": "#Trasparent",
+          "dark": "#Trasparent"
+        }
+      ]
+    },
+    {
+      "name": "border",
+      "colors": [
+        {
+          "name": "border-primary",
+          "description": "Border color for inputs",
+          "light": "#5B789A",
+          "dark": "#99B0C7"
+        }
+      ]
+    },
+    {
+      "name": "disabled",
+      "colors": [
+        {
+          "name": "disabled-primary",
+          "description": "Text color for disabled primary buttons",
+          "light": "#99B0C7",
+          "dark": "#5B789A"
+        },
+        {
+          "name": "disabled-secondary",
+          "description": "Background color for disabled primary buttons",
+          "light": "#ECF2F6",
+          "dark": "#102D47"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "colors": [
+        {
+          "name": "chart-border-go",
+          "description": "Border color for chart lines",
+          "light": "#99B0C7",
+          "dark": "#5B789A"
+        },
+        {
+          "name": "chart-inactive-go",
+          "description": "Unslected or inactive chart data",
+          "light": "#DCE7EF",
+          "dark": "#446383"
+        },
+        {
+          "name": "chart-income-0",
+          "description": "Income data on bar charts",
+          "light": "#50DCAA",
+          "dark": "#50DCAA"
+        },
+        {
+          "name": "chart-expenses-0",
+          "description": "Expense data on bar charts",
+          "light": "#A3A3FF",
+          "dark": "#A3A3FF"
+        },
+        {
+          "name": "chart-expense-1",
+          "description": "Highest % expense category",
+          "light": "#FF9524",
+          "dark": "#FF9524"
+        },
+        {
+          "name": "chart-expense-2",
+          "description": "2nd highest % expense category",
+          "light": "#F5D000",
+          "dark": "#F5D000"
+        },
+        {
+          "name": "chart-expense-3",
+          "description": "3rd highest % expense category",
+          "light": "#02C55A",
+          "dark": "#02C55A"
+        },
+        {
+          "name": "chart-expense-4",
+          "description": "4th highest % expense category",
+          "light": "#3DDCFA",
+          "dark": "#3DDCFA"
+        },
+        {
+          "name": "chart-expense-5",
+          "description": "5th highest % expense category",
+          "light": "#B146CD",
+          "dark": "#B146CD"
+        },
+        {
+          "name": "chart-expense-6",
+          "description": "6th highest % expense category",
+          "light": "#FF84AC",
+          "dark": "#FF84AC"
+        }
+      ]
+    }
+  ]
+}
