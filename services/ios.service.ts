@@ -9,10 +9,12 @@ const IOS_COLOR_REBRANDINGS_EXTENSION_TEMPLATE_PATH = 'iOS/Color+Go.eta';
 const IOS_UICOLOR_REBRANDINGS_EXTENSION_TEMPLATE_PATH = 'iOS/UIColor+Go.eta';
 const IOS_REBRANDING_COLORS_TEMPLATE_PATH = 'iOS/GoColor.eta';
 const IOS_REBRANDING_XCASSETS_CONTENTS_JSON_TEMPLATE_PATH = 'iOS/Contents.eta';
+const IOS_TEST_TEMPLATE_PATH = 'iOS/ColorExtensionSpec.eta';
 
 const IOS_COLOR_REBRANDINGS_EXTENSION_OUTPUT_PATH = 'outputs/iOS/Color+Go.swift';
 const IOS_UICOLOR_REBRANDINGS_EXTENSION_OUTPUT_PATH = 'outputs/iOS/UIColor+Go.swift';
 const IOS_REBRANDING_COLORS_OUTPUT_PATH = 'outputs/iOS/GoColor.swift';
+const IOS_TEST_OUTPUT_PATH = 'outputs/iOS/ColorExtensionSpec.swift';
 
 const IOS_REBRANDING_XCASSETS_PATH = 'outputs/iOS/Color.xcassets';
 const IOS_REBRANDING_XCASSETS_CONTENTS_JSON_PATH = 'outputs/iOS/Color.xcassets/Contents.json';
@@ -22,10 +24,12 @@ export class IOSService {
         const color_rebrandings_extension = await eta.renderFile(IOS_COLOR_REBRANDINGS_EXTENSION_TEMPLATE_PATH, data);
         const uicolor_rebrandings_extension = await eta.renderFile(IOS_UICOLOR_REBRANDINGS_EXTENSION_TEMPLATE_PATH, data);
         const rebranding_colors = await eta.renderFile(IOS_REBRANDING_COLORS_TEMPLATE_PATH, data);
+        const test_file = await eta.renderFile(IOS_TEST_TEMPLATE_PATH, data);
 
         FileUtil.writeToFile(color_rebrandings_extension, IOS_COLOR_REBRANDINGS_EXTENSION_OUTPUT_PATH);
         FileUtil.writeToFile(uicolor_rebrandings_extension, IOS_UICOLOR_REBRANDINGS_EXTENSION_OUTPUT_PATH);
         FileUtil.writeToFile(rebranding_colors, IOS_REBRANDING_COLORS_OUTPUT_PATH);
+        FileUtil.writeToFile(test_file, IOS_TEST_OUTPUT_PATH);
 
         await this.makeAssetsFolderContent(eta, data);
 
