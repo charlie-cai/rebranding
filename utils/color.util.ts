@@ -1,45 +1,48 @@
+import { RgbaColor } from "../interfaces";
+import { ValidatorUtil } from "./validator.util";
+
 export class ColorUtil {
 
-    // static parseRGBAHexColor(hex: string) {
-    //     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    //     return result ? {
-    //         alpha: parseInt(result[1], 16) / 255,
-    //         red: parseInt(result[2], 16) / 255,
-    //         green: parseInt(result[3], 16) / 255,
-    //         blue: parseInt(result[4], 16) / 255
-    //     } : null;
-    // }
+    static hexToRgbaObject(hex: string): RgbaColor {
 
-    static parseRGBHexColor(hex: string) {
+        if (!ValidatorUtil.isValidHex(hex)) {
+            throw new Error('hexColorString is invalid');
+        }
 
-        const red = `0x${hex.substring(1, 3)}`;
-        const green = `0x${hex.substring(3, 5)}`;
-        const blue = `0x${hex.substring(5, 7)}`;
+        if (hex === '#Transparent') {
+            return {
+                alpha: '0x00',
+                red: '0x00',
+                green: '0x00',
+                blue: '0x00'
+            }
+        }
 
         return {
-            red,
-            green,
-            blue
+            alpha: '0xFF',
+            red: `0x${hex.substring(1, 3)}`,
+            green: `0x${hex.substring(3, 5)}`,
+            blue: `0x${hex.substring(5, 7)}`
         }
     }
 
-    // static rgbaToHex(red: number, green: number, blue: number, alpha: number) {
+    // static rgbToHex(red: number, green: number, blue: number): string {
     //     const componentToHex = (c: number) => {
     //         var hex = c.toString(16);
     //         return hex.length == 1 ? "0" + hex : hex;
     //     }
-    //     return ('#' + componentToHex(alpha) + componentToHex(red) + componentToHex(green) + componentToHex(blue)).toUpperCase();
+    //     return ('#' + componentToHex(red) + componentToHex(green) + componentToHex(blue)).toUpperCase();
     // }
 
-    static rgbToHex(red: number, green: number, blue: number) {
-        const componentToHex = (c: number) => {
-            var hex = c.toString(16);
-            return hex.length == 1 ? "0" + hex : hex;
+    static sharpTo0xWithAlpha(hex: string): string {
+        if (!ValidatorUtil.isValidHex(hex)) {
+            throw new Error('invalid # prefixed hex color string');
         }
-        return ('#' + componentToHex(red) + componentToHex(green) + componentToHex(blue)).toUpperCase();
-    }
 
-    static sharpTo0x(color: string): string {
-        return '0x' + color.slice(1);
+        if (hex === '#Transparent') {
+            return '0x00000000';
+        }
+
+        return '0x' + `FF${hex.slice(1)}`.toUpperCase();
     }
 }

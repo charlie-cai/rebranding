@@ -4,6 +4,6 @@ export enum Env {
     Page_Id = 'PAGE_ID',
     Figma_Api_Base_Url = 'FIGMA_API_BASE_URL',
     Figma_Token = 'FIGMA_TOKEN',
-    Ios_Color_Folder_Path = 'IOS_COLOR_FOLDER_PATH',
-    Android_Color_Folder_Path = 'ANDROID_COLOR_FOLDER_PATH'
+    IOS_PROJECT_PATH = 'IOS_PROJECT_PATH',
+    Android_PROJECT_PATH = 'ANDROID_PROJECT_PATH'
 }

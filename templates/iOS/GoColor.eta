@@ -1,8 +1,8 @@
 import SwiftUI
 
 enum GoColor: String, CaseIterable {
-<% it.colors.forEach(function(color){ %>
-  case <%= it.func.camelCaseFromHyphenCase(color.name) %> = "<%= color.name.toLowerCase() %>"
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+  case <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %> = "<%= semantic_color.name.toLowerCase() %>"
 <% }) %>
 }
 

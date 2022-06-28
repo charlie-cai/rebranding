@@ -10,9 +10,9 @@ public extension Color {
 }
 
 public extension Color.Palette {
-<% it.colors.forEach(function(color){ %>
-  var <%= it.func.camelCaseFromHyphenCase(color.name) %>: Color {
-    GoColor.<%= it.func.camelCaseFromHyphenCase(color.name) %>.color
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+  var <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>: Color {
+    GoColor.<%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>.color
   }
 
 <% }) %>

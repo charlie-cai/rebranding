@@ -4,22 +4,22 @@ import androidx.compose.ui.graphics.Color
 
 @Suppress("LongParameterList")
 class GreenLiteRebrandingLiteColors internal constructor(
-<% it.rebranding.semantics.forEach(function(semantic){ %>
-    val <%= it.func.camelCaseFromHyphenCase(semantic.name) %>: Color,
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+    val <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>: Color,
 <% }) %>
 )
 
 @SuppressLint("WrongColorUsage")
 internal val GreenLiteRebrandingLiteColorsLight= GreenLiteRebrandingLiteColors(
-    <% it.rebranding.semantics.forEach(function(semantic){ %>
-    <%= it.func.camelCaseFromHyphenCase(semantic.name) %> = GreenLiteRebrandingLiteColorPalette.<%= it.func.uppercaseFirstChar(semantic.tokenCategoryLight) %>.<%= it.func.camelCaseFromHyphenCase(semantic.tokenLight) %>,
-    <% }) %>
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+    <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %> = GreenLiteRebrandingLiteColorPalette.<%= it.func.camelCaseFromHyphenCase(semantic_color.light) %>,
+<% }) %>
 )
 
 @SuppressLint("WrongColorUsage")
 internal val GreenLiteRebrandingLiteColorsDark= GreenLiteRebrandingLiteColors(
-    <% it.rebranding.semantics.forEach(function(semantic){ %>
-    <%= it.func.camelCaseFromHyphenCase(semantic.name) %> = GreenLiteRebrandingLiteColorPalette.<%= it.func.uppercaseFirstChar(semantic.tokenCategoryDark) %>.<%= it.func.camelCaseFromHyphenCase(semantic.tokenDark)%>,
-    <% }) %>
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+    <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %> = GreenLiteRebrandingLiteColorPalette.<%= it.func.camelCaseFromHyphenCase(semantic_color.dark)%>,
+<% }) %>
 )
 

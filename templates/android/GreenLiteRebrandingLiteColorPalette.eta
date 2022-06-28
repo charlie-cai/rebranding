@@ -5,13 +5,7 @@ import androidx.compose.ui.graphics.Color
 
 @SuppressLint("WrongColorUsage")
 internal object GreenLiteRebrandingLiteColorPalette {
-
-<% it.rebranding.tokenCategories.forEach(function(tokenCategory){ %>
-object <%= it.func.uppercaseFirstChar(tokenCategory.category) %> {
-    <% tokenCategory.tokens.forEach(function(token){ %>
-    val <%= it.func.camelCaseFromHyphenCase(token.token) %> = Color(<%= it.func.sharpTo0x(token.color) %>)
-    <% }) %>
-}
+<% it.token_colors.forEach(function(token_color){ %>
+    val <%= it.func.camelCaseFromHyphenCase(token_color.name) %> = Color(<%= it.func.sharpTo0xWithAlpha(token_color.hex) %>)
 <% }) %>
-
 }

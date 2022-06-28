@@ -3,5 +3,6 @@ export enum FigmaNodeType {
     Rectangle = 'RECTANGLE',
     Triangle = 'TRIANGLE',
     Ellipse = 'ELLIPSE',
-    Group = 'GROUP'
+    Group = 'GROUP',
+    Frame = 'FRAME'
 }

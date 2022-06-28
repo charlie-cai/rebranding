@@ -9,8 +9,8 @@ class ColorExtensionSpec: QuickSpec {
     describe("SwiftUI Color extensions") {
       let go = Color.go
       let colors = [
-<% it.colors.forEach(function(color){ %>
-        go.<%= it.func.camelCaseFromHyphenCase(color.name) %>,
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+        go.<%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>,
 <% }) %>
       ]
       
@@ -29,8 +29,8 @@ class ColorExtensionSpec: QuickSpec {
     describe("UIColor extensions") {
       let go = UIColor.go
       let uiColors = [
-<% it.colors.forEach(function(color){ %>
-        go.<%= it.func.camelCaseFromHyphenCase(color.name) %>,
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+        go.<%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>,
 <% }) %>
       ]
       

@@ -2,28 +2,43 @@
   "name": "rebranding",
   "version": "1.0.0",
   "main": "index.ts",
-  "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
     "chalk": "^5.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
+    "cli-progress": "^3.11.1",
     "dotenv": "^16.0.0",
     "eta": "^1.12.3",
     "fs-extra": "^10.1.0",
     "inquirer": "^8.2.0",
     "nodemon": "^2.0.15",
-    "npm-run-all": "^4.1.5",
     "progress": "^2.0.3",
-    "prompts": "^2.4.2"
+    "prompts": "^2.4.2",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/plugin-proposal-decorators": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-typescript": "^7.17.12",
+    "@types/cli-progress": "^3.11.0",
     "@types/jest": "^28.1.2",
     "@types/node": "^17.0.5",
+    "babel-jest": "^28.1.1",
     "jest": "^28.1.1",
+    "ts-jest": "^28.0.5",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   },
   "scripts": {
-    "start": "ts-node index.ts",
+    "figma:sync": "ts-node scripts/figma-sync.ts",
+    "ios:output": "ts-node scripts/ios-output.ts",
+    "ios:override": "ts-node scripts/ios-override.ts",
+    "android:output": "ts-node scripts/android-output.ts",
+    "android:override": "ts-node scripts/android-override.ts",
+    "ios:run-all": "ts-node scripts/figma-sync.ts && ts-node scripts/ios-output.ts && ts-node scripts/ios-override.ts",
+    "android:run-all": "ts-node scripts/figma-sync.ts && ts-node scripts/android-output.ts && ts-node scripts/android-override.ts",
     "test": "jest"
   }
 }

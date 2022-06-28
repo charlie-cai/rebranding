@@ -9,9 +9,9 @@ public extension UIColor {
 }
 
 public extension UIColor.Palette {
-<% it.colors.forEach(function(color){ %>
-  var <%= it.func.camelCaseFromHyphenCase(color.name) %>: UIColor {
-    GoColor.<%= it.func.camelCaseFromHyphenCase(color.name) %>.uiColor
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+  var <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>: UIColor {
+    GoColor.<%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>.uiColor
   }
 
 <% }) %>
