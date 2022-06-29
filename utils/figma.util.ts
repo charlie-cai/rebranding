@@ -1,4 +1,5 @@
 
+import { Path, Config } from '../constants';
 import {
     Env,
     FigmaNodeType,
@@ -14,8 +15,6 @@ import {
 } from '../utils';
 import { FileUtil } from './file.util';
 import { JSONUtil } from './json.util';
-
-const COLOR_JSON = 'color.json';
 
 export class FigmaUtil {
     static searchByNodeIdArray(node: FigmaNode, nodeIdArray: string[]): FigmaNode | null {
@@ -43,14 +42,13 @@ export class FigmaUtil {
 
         const file = await this.fetchFile();
         const rebranding = this.parseFileJson(file);
-        FileUtil.writeToFile(JSONUtil.prettify(rebranding), COLOR_JSON);
+        FileUtil.writeToFile(JSONUtil.prettify(rebranding), Path.COLOR_JSON);
     }
 
     private static parseFileJson(file: any): ColorJson {
         console.log('Start parse figma file to color.json');
         try {
-            const page_id = EnvUtil.safeGet(Env.Page_Id);
-            const page = FigmaUtil.searchByNodeIdArray(file.document, [page_id]);
+            const page = FigmaUtil.searchByNodeIdArray(file.document, [Config.PAGE_ID]);
 
             const color_groups = FigmaUtil.searchByNodeIdArray(page, ['924:46799', '924:47720', '1842:106647', '1842:106648'])
                 .children.filter((color_group: FigmaNode) => {
@@ -137,15 +135,12 @@ export class FigmaUtil {
 
     static fetchFile(): Promise<any> {
 
-        const api_base_url = EnvUtil.safeGet(Env.Figma_Api_Base_Url) as string;
-        const file_id = EnvUtil.safeGet(Env.File_Id);
-
         const headers: any = {};
         headers[HttpHeader.Figma_Token] = EnvUtil.safeGet(Env.Figma_Token);
 
         const request: NetworkRequest = {
-            baseURL: api_base_url,
-            url: `files/${file_id}`,
+            baseURL: Config.FIGMA_API_BASE_URL,
+            url: `files/${Config.FILE_ID}`,
             method: HttpMethod.GET,
             headers: headers,
             responseType: 'stream'

@@ -34,4 +34,8 @@ export class FileUtil {
         }
         fs.mkdirSync(path);
     }
+
+    static makeFolderRecursive(path: string): void {
+        fs.mkdirSync(path, { recursive: true });
+    }
 }

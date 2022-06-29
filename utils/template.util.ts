@@ -5,18 +5,17 @@ const path = require('path');
 
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
+import { Path } from '../constants';
 import { TemplateDataInput } from '../interfaces';
 
 import { ColorJson, ColorSemantic, ColorToken, ColorGroup } from './../models';
 import { ColorUtil, FileUtil, StringUtil } from './../utils';
 
-const COLOR_JSON = 'color.json';
-
 export class TemplateUtil {
     static async makeDataInputFromColorJson(isIOS: boolean): Promise<TemplateDataInput> {
         eta.configure({ views: path.join(__dirname, '../templates') });
 
-        const color_json = await FileUtil.readFileAsJson(COLOR_JSON);
+        const color_json = await FileUtil.readFileAsJson(Path.COLOR_JSON);
         const color_json_object = plainToInstance(ColorJson, color_json);
 
         const errors = await validate(color_json_object);

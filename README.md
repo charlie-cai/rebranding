@@ -26,14 +26,8 @@
 
  3.`yarn android:run-all` or `npm run android:run-all` to run sync,output,override in one go
 
-## environment variable
-- FIGMA_API_BASE_URL=https://api.figma.com/v1
+## environment variable(set them in .env file)
 - FIGMA_TOKEN (refer to lastpass)
-
-- TEAM_ID=992262321208821608
-- FILE_ID=zWEH2ilFxkMLxwEl3DZEbz
-- PAGE_ID=0:1
-  
 - IOS_PROJECT_PATH (refer to your local iOS project root folder path)
 - ANDROID_PROJECT_PATH (refer to your local android project root folder path)
 

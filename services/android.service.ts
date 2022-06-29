@@ -1,15 +1,11 @@
 const fse = require('fs-extra');
 
 import { EtaConfig } from 'eta/dist/types/config';
+import { Path } from '../constants';
 import { Env } from '../enums';
 import { Service, TemplateDataInput } from '../interfaces';
 import { EnvUtil, FileUtil } from '../utils';
 
-const ANDROID_COLOR_PALETTE_TEMPLATE_PATH = './android/GreenLiteRebrandingLiteColorPalette.eta';
-const ANDROID_COLORS_TEMPLATE_PATH = './android/GreenLiteRebrandingLiteColors.eta';
-
-const ANDROID_COLOR_PALETTE_OUTPUT_PATH = 'outputs/android/sources/GreenLiteRebrandingLiteColorPalette.kt';
-const ANDROID_COLORS_OUTPUT_PATH = 'outputs/android/sources/GreenLiteRebrandingLiteColors.kt';
 
 export class AndroidService implements Service {
 
@@ -20,11 +16,15 @@ export class AndroidService implements Service {
     async output() {
         console.log('Start generate color files to Android project');
 
-        const generatedPalette = await this.eta.renderFile(ANDROID_COLOR_PALETTE_TEMPLATE_PATH, this.data);
-        const generatedColors = await this.eta.renderFile(ANDROID_COLORS_TEMPLATE_PATH, this.data);
+        // create sources and tests folder if not exists
+        FileUtil.makeFolderRecursive('outputs/android/sources');
+        FileUtil.makeFolderRecursive('outputs/android/tests');
 
-        FileUtil.writeToFile(generatedPalette, ANDROID_COLOR_PALETTE_OUTPUT_PATH);
-        FileUtil.writeToFile(generatedColors, ANDROID_COLORS_OUTPUT_PATH);
+        const generatedPalette = await this.eta.renderFile(Path.ANDROID_COLOR_PALETTE_TEMPLATE_PATH, this.data);
+        const generatedColors = await this.eta.renderFile(Path.ANDROID_COLORS_TEMPLATE_PATH, this.data);
+
+        FileUtil.writeToFile(generatedPalette, Path.ANDROID_COLOR_PALETTE_OUTPUT_PATH);
+        FileUtil.writeToFile(generatedColors, Path.ANDROID_COLORS_OUTPUT_PATH);
     }
 
     override() {
