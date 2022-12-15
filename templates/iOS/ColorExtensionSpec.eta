@@ -10,7 +10,8 @@ class ColorExtensionSpec: QuickSpec {
       let go = Color.go
       let colors = [
 <% it.semantic_colors.forEach(function(semantic_color){ %>
-        go.<%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>,
+        go.<%= it.func.camelCaseFromHyphenCase(semantic_color.name) %><% if (it.semantic_colors.indexOf(semantic_color) == it.semantic_colors.length - 1) { %><% } else { %>,<% } %>
+
 <% }) %>
       ]
       
@@ -30,7 +31,8 @@ class ColorExtensionSpec: QuickSpec {
       let go = UIColor.go
       let uiColors = [
 <% it.semantic_colors.forEach(function(semantic_color){ %>
-        go.<%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>,
+        go.<%= it.func.camelCaseFromHyphenCase(semantic_color.name) %><% if (it.semantic_colors.indexOf(semantic_color) == it.semantic_colors.length - 1) { %><% } else { %>,<% } %>
+
 <% }) %>
       ]
       

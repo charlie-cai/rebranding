@@ -43,7 +43,7 @@ export class IOSService implements Service {
                 console.error(err);
             }
         });
-        fse.copySync('outputs/iOS/tests', `${iOS_root_folder_path}/modules/DesignKit/Tests`, { overwrite: true }, function (err: any) {
+        fse.copySync('outputs/iOS/tests', `${iOS_root_folder_path}/modules/DesignKit/Tests/DesignKitTests`, { overwrite: true }, function (err: any) {
             if (err) {
                 console.error(err);
             }
