@@ -1,6 +1,8 @@
 import Nimble
 import Quick
 import SwiftUI
+import SnapshotTesting
+import TestKit
 
 @testable import DesignKit
 
@@ -20,6 +22,7 @@ class ColorExtensionSpec: QuickSpec {
           expect(color).to(beAKindOf(Color.self))
         }
       }
+
       it("Should get corresponding UIColor from a SwiftUI Color") {
         colors.forEach { color in
           expect(color.toUIColor).to(beAKindOf(UIColor.self))
@@ -45,6 +48,57 @@ class ColorExtensionSpec: QuickSpec {
         uiColors.forEach { uiColor in
          expect(uiColor.toColor).to(beAKindOf(Color.self))
         }
+      }
+    }
+    
+    describe("Color snapshot test") {
+      let testName = "color palette"
+      itWithColorSchemes { colorScheme in
+        let viewController = UIHostingController(rootView: ContainerView())
+        viewController.overrideUserInterfaceStyle = colorScheme
+        assertSnapshot(matching: viewController,
+                       as: .image(on: .iPhoneX,
+                                  subpixelThreshold: 1,
+                                  size: .init(width: UIScreen.main.bounds.width,
+                                              height: UIScreen.main.bounds.width *
+                                              0.5 *
+                                              CGFloat(GoColor.allCases.count))),
+                       named: "should-display-color-palette-correctly-\(colorScheme.description)",
+                       testName: testName)
+      }
+      
+      GoColor.allCases.forEach { goColor in
+        itWithColorSchemes { colorScheme in
+          let viewController = UIHostingController(rootView:
+                                                    Rectangle().fill(goColor.color).frame(height: UIScreen.main.bounds.height))
+          viewController.overrideUserInterfaceStyle = colorScheme
+          assertSnapshot(matching: viewController,
+                         as: .image(on: .iPhoneX,
+                                    subpixelThreshold: 1,
+                                    size: .init(width: UIScreen.main.bounds.width * 0.5,
+                                                height: UIScreen.main.bounds.width * 0.5)),
+                         named: "should-display-\(goColor.rawValue)-correctly-\(colorScheme.description)",
+                         testName: testName)
+        }
+      }
+    }
+  }
+}
+
+fileprivate struct ContainerView: View {
+  public var body: some View {
+    VStack(spacing: 0) {
+      ForEach(GoColor.allCases, id: \.self) { goColor in
+        
+        ZStack {
+          Rectangle()
+            .fill(goColor.color)
+            .frame(height: UIScreen.main.bounds.width * 0.5)
+          
+          Text(goColor.rawValue)
+            .foregroundColor(Color.black)
+            .background(Rectangle().fill(Color.white))
+        }.frame(height: UIScreen.main.bounds.width * 0.5)
       }
     }
   }

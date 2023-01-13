@@ -11,7 +11,7 @@ export class ColorUtil {
 
         if (hex === '#Transparent') {
             return {
-                alpha: '0x00',
+                alpha: '0.000',
                 red: '0x00',
                 green: '0x00',
                 blue: '0x00'
@@ -19,7 +19,7 @@ export class ColorUtil {
         }
 
         return {
-            alpha: '0xFF',
+            alpha: '1.000',
             red: `0x${hex.substring(1, 3)}`,
             green: `0x${hex.substring(3, 5)}`,
             blue: `0x${hex.substring(5, 7)}`

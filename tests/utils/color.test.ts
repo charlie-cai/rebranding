@@ -13,19 +13,19 @@ describe('ColorUtil', () => {
             test_cases = [
                 {
                     input: '#FFFFFF',
-                    result: { alpha: '0xFF', red: '0xFF', green: '0xFF', blue: '0xFF' }
+                    result: { alpha: '1.000', red: '0xFF', green: '0xFF', blue: '0xFF' }
                 },
                 {
                     input: '#ffffff',
-                    result: { alpha: '0xFF', red: '0xff', green: '0xff', blue: '0xff' }
+                    result: { alpha: '1.000', red: '0xff', green: '0xff', blue: '0xff' }
                 },
                 {
                     input: '#000000',
-                    result: { alpha: '0xFF', red: '0x00', green: '0x00', blue: '0x00' }
+                    result: { alpha: '1.000', red: '0x00', green: '0x00', blue: '0x00' }
                 },
                 {
                     input: '#Transparent',
-                    result: { alpha: '0x00', red: '0x00', green: '0x00', blue: '0x00' }
+                    result: { alpha: '0.000', red: '0x00', green: '0x00', blue: '0x00' }
                 },
             ]
         });

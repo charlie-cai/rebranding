@@ -24,18 +24,12 @@ export class NetworkUtil {
 
         return new Promise<any>(function (resolve, reject) {
             axios(request).then((response: AxiosResponse) => {
-                const content_length = parseInt(response.headers['content-length']);
-                const progress_bar = CliUtil.makeProgressBar(100, 0);
                 const buffers: Buffer[] = [];
-
                 response.data.on('data', (received: Buffer) => {
                     buffers.push(received);
-                    const progress = Buffer.concat(buffers).byteLength / content_length;
-                    progress_bar.update(Number(progress.toFixed(2)) * 100);
                 });
 
                 response.data.on('end', () => {
-                    progress_bar.stop();
                     try {
                         const json = JSON.parse(Buffer.concat(buffers).toString());
                         resolve(json);

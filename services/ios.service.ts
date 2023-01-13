@@ -18,6 +18,7 @@ export class IOSService implements Service {
 
         // create sources and tests folder if not exists
         FileUtil.makeFolderRecursive('outputs/iOS/sources');
+        FileUtil.makeFolderRecursive('outputs/iOS/resources');
         FileUtil.makeFolderRecursive('outputs/iOS/tests');
 
         const color_rebrandings_extension = await this.eta.renderFile(Path.IOS_COLOR_REBRANDINGS_EXTENSION_TEMPLATE_PATH, this.data);
@@ -38,11 +39,18 @@ export class IOSService implements Service {
 
         const iOS_root_folder_path = EnvUtil.safeGet(Env.IOS_PROJECT_PATH);
 
-        fse.copySync('outputs/iOS/sources', `${iOS_root_folder_path}/modules/DesignKit/Source/Colors`, { overwrite: true }, function (err: any) {
+        fse.copySync('outputs/iOS/sources', `${iOS_root_folder_path}/modules/DesignKit/Sources/DesignKit/Colors`, { overwrite: true }, function (err: any) {
             if (err) {
                 console.error(err);
             }
         });
+
+        fse.copySync('outputs/iOS/resources/Color.xcassets', `${iOS_root_folder_path}/modules/DesignKit/Sources/DesignKit/Resources/Color.xcassets`, { overwrite: true }, function (err: any) {
+            if (err) {
+                console.error(err);
+            }
+        });
+
         fse.copySync('outputs/iOS/tests', `${iOS_root_folder_path}/modules/DesignKit/Tests/DesignKitTests`, { overwrite: true }, function (err: any) {
             if (err) {
                 console.error(err);
@@ -57,7 +65,7 @@ export class IOSService implements Service {
     private async makeAssetsFolderContent(eta: EtaConfig, data: TemplateDataInput) {
         this.makeAssetsFolder();
 
-        await FileUtil.copyFileTo(`templates/${Path.IOS_REBRANDING_XCASSETS_CONTENTS_JSON_TEMPLATE_PATH}`, Path.IOS_REBRANDING_XCASSETS_CONTENTS_JSON_PATH);
+        await FileUtil.copyFileTo(`templates/${Path.IOS_REBRANDING_XCASSETS_FOLDER_CONTENTS_JSON_TEMPLATE_PATH}`, Path.IOS_REBRANDING_XCASSETS_CONTENTS_JSON_PATH);
         data.semantic_colors.forEach((semantic_color: ColorSemantic) => {
             this.makeColorAsset(semantic_color.name);
 
@@ -76,7 +84,7 @@ export class IOSService implements Service {
     }
 
     private async makeColorContentsJson(eta: EtaConfig, color: IOSColorResource, name: string) {
-        const color_contents_json = await eta.renderFile(Path.IOS_REBRANDING_XCASSETS_CONTENTS_JSON_TEMPLATE_PATH, color);
+        const color_contents_json = await eta.renderFile(Path.IOS_REBRANDING_XCASSETS_COLOR_CONTENTS_JSON_TEMPLATE_PATH, color);
         FileUtil.writeToFile(color_contents_json, `${Path.IOS_REBRANDING_XCASSETS_PATH}/${name}.colorset/Contents.json`);
     }
 }

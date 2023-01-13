@@ -39,7 +39,6 @@ export class FigmaUtil {
 
     static async syncToJson() {
         console.log('Start fetch figma file from https://www.figma.com/file/qE9Tc51ashfgEO8QDoSSSU/Xero-Go-%7C-Design-Library?node-id=924%3A46799');
-
         const file = await this.fetchFile();
         const rebranding = this.parseFileJson(file);
         FileUtil.writeToFile(JSONUtil.prettify(rebranding), Path.COLOR_JSON);
@@ -137,7 +136,7 @@ export class FigmaUtil {
 
         const headers: any = {};
         headers[HttpHeader.Figma_Token] = EnvUtil.safeGet(Env.Figma_Token);
-
+        headers['Transfer-Encoding'] = 'identity';
         const request: NetworkRequest = {
             baseURL: Config.FIGMA_API_BASE_URL,
             url: `files/${Config.FILE_ID}`,
