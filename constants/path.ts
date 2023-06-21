@@ -14,8 +14,8 @@ export enum Path {
     IOS_REBRANDING_XCASSETS_PATH = 'outputs/iOS/resources/Color.xcassets',
     IOS_REBRANDING_XCASSETS_CONTENTS_JSON_PATH = 'outputs/iOS/resources/Color.xcassets/Contents.json',
 
-    ANDROID_COLOR_PALETTE_TEMPLATE_PATH = './android/GreenLiteRebrandingLiteColorPalette.eta',
-    ANDROID_COLORS_TEMPLATE_PATH = './android/GreenLiteRebrandingLiteColors.eta',
-    ANDROID_COLOR_PALETTE_OUTPUT_PATH = 'outputs/android/sources/GreenLiteRebrandingLiteColorPalette.kt',
-    ANDROID_COLORS_OUTPUT_PATH = 'outputs/android/sources/GreenLiteRebrandingLiteColors.kt',
+    ANDROID_COLOR_PALETTE_TEMPLATE_PATH = './android/LiteColorPalette.eta',
+    ANDROID_COLORS_TEMPLATE_PATH = './android/LiteColors.eta',
+    ANDROID_COLOR_PALETTE_OUTPUT_PATH = 'outputs/android/sources/LiteColorPalette.kt',
+    ANDROID_COLORS_OUTPUT_PATH = 'outputs/android/sources/LiteColors.kt',
 }
