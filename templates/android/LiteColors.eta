@@ -1,0 +1,25 @@
+package com.xero.lite.designkit.theme
+
+import androidx.compose.ui.graphics.Color
+
+@Suppress("LongParameterList")
+class LiteColors internal constructor(
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+    val <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>: Color,
+<% }) %>
+)
+
+@SuppressLint("WrongColorUsage")
+internal val LiteColorsLight= LiteColors(
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+    <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %> = LiteColorPalette.<%= it.func.camelCaseFromHyphenCase(semantic_color.light) %>,
+<% }) %>
+)
+
+@SuppressLint("WrongColorUsage")
+internal val LiteColorsDark= LiteColors(
+<% it.semantic_colors.forEach(function(semantic_color){ %>
+    <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %> = LiteColorPalette.<%= it.func.camelCaseFromHyphenCase(semantic_color.dark)%>,
+<% }) %>
+)
+

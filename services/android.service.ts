@@ -31,7 +31,7 @@ export class AndroidService implements Service {
         console.log('Start override color files to Android project');
 
         const android_root_folder_path = EnvUtil.safeGet(Env.Android_PROJECT_PATH);
-        fse.copySync('outputs/android', `${android_root_folder_path}/design-kit/src/main/java/com/xero/lite/designkit/theme`, { overwrite: true }, function (err: any) {
+        fse.copySync('outputs/android/sources', `${android_root_folder_path}/design-kit/src/main/java/com/xero/lite/designkit/theme`, { overwrite: true }, function (err: any) {
             if (err) {
                 console.error(err);
             }
