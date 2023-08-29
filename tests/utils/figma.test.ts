@@ -36,7 +36,7 @@ describe('FigmaUtil', () => {
         });
 
         test(`searchByNodeIdArray should work as expected`, () => {
-            expect(FigmaUtil.searchByNodeIdArray(test_case.input.node, test_case.input.nodeInArray)).toBe(test_case.result);
+            expect(FigmaUtil.searchByNodeIdPath(test_case.input.node, test_case.input.nodeInArray)).toBe(test_case.result);
         });
     });
 

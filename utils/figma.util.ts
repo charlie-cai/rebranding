@@ -17,7 +17,7 @@ import { FileUtil } from './file.util';
 import { JSONUtil } from './json.util';
 
 export class FigmaUtil {
-    static searchByNodeIdArray(node: FigmaNode, nodeIdArray: string[]): FigmaNode | null {
+    static searchByNodeIdPath(node: FigmaNode, nodeIdArray: string[]): FigmaNode | null {
         nodeIdArray.forEach((nodeId: string) => {
             node = node.children.find((node: FigmaNode) => node.id === nodeId)
             if (node) {
@@ -47,16 +47,24 @@ export class FigmaUtil {
     private static parseFileJson(file: any): ColorJson {
         console.log('Start parse figma file to color.json');
         try {
-            const page = FigmaUtil.searchByNodeIdArray(file.document, [Config.PAGE_ID]);
 
-            const color_groups = FigmaUtil.searchByNodeIdArray(page, ['924:46799', '924:47720', '1842:106647', '1842:106648'])
+            // Locate Colour Palette PAGE
+            const page = FigmaUtil.searchByNodeIdPath(file.document, [Config.PAGE_ID]);
+
+            // Locate Colour Group by node id sequence
+            /*
+                "id": "924:46799", "name": "Colour Palette"
+                "id": "924:47720", "name": "Content"
+                "id": "1842:106647", "name": "Complete Xero Go Colour Palette"
+                "id": "1842:106648", "name": "Frame 4097"
+            */
+            const nodeIdPathToColorGroup = ['924:46799', '924:47720', '1842:106647', '1842:106648'];
+            const color_groups = FigmaUtil.searchByNodeIdPath(page, nodeIdPathToColorGroup)
                 .children.filter((color_group: FigmaNode) => {
                     return color_group.type === FigmaNodeType.Frame;
                 });
 
-            // Remove last additional design and native UI colours (not needed for dev) block
-            color_groups.pop();
-
+            // Generate Color Group
             const rebranding: ColorJson = { groups: [], tokens: [] };
             color_groups.forEach((color_group: FigmaNode) => {
 
