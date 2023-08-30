@@ -7,6 +7,10 @@ const GROUP_NAME_WHITE_LIST = [
     'XG Brand Identity'
 ]
 
+const SEMANTIC_NAME_WHITE_LIST = [
+    'background-valueProp'
+]
+
 const HEX_WHITE_LIST = [
     '#Transparent'
 ]
@@ -35,6 +39,9 @@ export class ValidatorUtil {
     }
 
     static isValidColorSemanticName(name: string): boolean {
+        if (SEMANTIC_NAME_WHITE_LIST.includes(name)) {
+            return true
+        }
         const isNoSpace = !name.includes(' ');
         const isAtLeastOneHyphen = (name.match(/-/g) || []).length >= 1;
         const isAllLowercase = name === name.toLowerCase();
