@@ -70,7 +70,7 @@ describe('FigmaUtil', () => {
         });
 
         test(`searchByChildrenIndexArray should work as expected`, () => {
-            expect(FigmaUtil.searchByChildrenIndexArray(test_case.input.node, test_case.input.childrenIndexArray)).toBe(test_case.result);
+            expect(FigmaUtil.searchByChildrenIndexPath(test_case.input.node, test_case.input.childrenIndexArray)).toBe(test_case.result);
         });
     });
 

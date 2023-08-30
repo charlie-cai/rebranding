@@ -28,7 +28,7 @@ export class FigmaUtil {
         return node;
     }
 
-    static searchByChildrenIndexArray(node: FigmaNode, childrenIndexes: number[]): FigmaNode | null {
+    static searchByChildrenIndexPath(node: FigmaNode, childrenIndexes: number[]): FigmaNode | null {
         childrenIndexes.forEach((childrenIndex: number) => {
             if (childrenIndex + 1 > node.children.length) {
                 return null;
@@ -82,18 +82,18 @@ export class FigmaUtil {
                 let color_token_name_index = 0;
 
                 color_group.children.forEach((semantic_color: ColorSemantic) => {
-                    const semantic_color_name = FigmaUtil.sanitizeColorName(FigmaUtil.searchByChildrenIndexArray(semantic_color, [0, 0, 0, 0, 0])
+                    const semantic_color_name = FigmaUtil.sanitizeColorName(FigmaUtil.searchByChildrenIndexPath(semantic_color, [0, 0, 0, 0, 0])
                         .characters);
-                    const semantic_color_description = FigmaUtil.searchByChildrenIndexArray(semantic_color, [0, 0, 1, 0])
+                    const semantic_color_description = FigmaUtil.searchByChildrenIndexPath(semantic_color, [0, 0, 1, 0])
                         .characters;
-                    const semantic_color_light_array = FigmaUtil.searchByChildrenIndexArray(semantic_color, [0, 0, 2])
+                    const semantic_color_light_array = FigmaUtil.searchByChildrenIndexPath(semantic_color, [0, 0, 2])
                         .characters.split('\n');
                     let semantic_color_light_name = FigmaUtil.sanitizeColorName(semantic_color_light_array.length > 1 ? semantic_color_light_array[1] : `${color_token_name_prefix}-${color_token_name_index}`);
                     if (semantic_color_light_array.length <= 1) {
                         color_token_name_index += 1;
                     }
                     const semantic_color_light_hex = semantic_color_light_array[0];
-                    const semantic_color_dark_array = FigmaUtil.searchByChildrenIndexArray(semantic_color, [1, 0, 2])
+                    const semantic_color_dark_array = FigmaUtil.searchByChildrenIndexPath(semantic_color, [1, 0, 2])
                         .characters.split('\n');
                     let semantic_color_dark_name = FigmaUtil.sanitizeColorName(semantic_color_dark_array.length > 1 ? semantic_color_dark_array[1] : `${color_token_name_prefix}-${color_token_name_index}`);
                     if (semantic_color_dark_array.length <= 1) {
@@ -131,9 +131,24 @@ export class FigmaUtil {
                         dark: semantic_color_dark_name
                     });
                 });
-
                 rebranding.groups.push(group);
+            });
 
+            // Handle XG Brand Identity
+            // I need to handle this part manaully here cuz XG Brand Identity is not a standard color palette we follow for Xero go
+            rebranding.groups.push({
+                name: 'XG Brand Identity',
+                colors: [{
+                    name: 'background-valueprop',
+                    light: 'na',
+                    dark: 'blue-80',
+                    description: 'Specialty colour only to be used in onboarding. It’s taken from the XG Brand Identity - Primary Colour, ‘Xero Go Blue’'
+                }]
+            });
+
+            rebranding.tokens.push({
+                name: 'na',
+                hex:'#BBF3FD'
             });
 
             return rebranding;
