@@ -178,7 +178,7 @@ export class FigmaUtil {
         return name.toLowerCase().replace(/\s/g, '');
     }
 
-    static output() {
+    static snapshot() {
         const colorJson = FileUtil.readFileAsJsonSync(Path.COLOR_JSON);
         CanvasUtil.makeImage(colorJson);
     }

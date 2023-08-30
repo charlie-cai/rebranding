@@ -4,7 +4,7 @@ import { FigmaUtil } from '../utils';
 
 (async () => {
     try {
-        await FigmaUtil.output();
+        await FigmaUtil.snapshot();
     } catch (err) {
         console.error(err);
     }

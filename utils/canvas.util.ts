@@ -6,7 +6,7 @@ const COLOR_RECT_WIDTH = 300;
 const COLOR_RECT_HEIGHT = 150;
 const TEXT_X_OFFSET = 20;
 const TEXT_Y_OFFSET = 0.5 * COLOR_RECT_HEIGHT;
-const OUTPUT_FILE_NAME = 'color.png';
+const OUTPUT_FILE_NAME = 'snapshot.png';
 
 export class CanvasUtil {
 

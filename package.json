@@ -36,7 +36,7 @@
   },
   "scripts": {
     "figma:sync": "ts-node scripts/figma-sync.ts",
-    "figma:output": "ts-node scripts/figma-output.ts",
+    "figma:snapshot": "ts-node scripts/figma-snapshot.ts",
     "ios:output": "ts-node scripts/ios-output.ts",
     "ios:override": "ts-node scripts/ios-override.ts",
     "android:output": "ts-node scripts/android-output.ts",
