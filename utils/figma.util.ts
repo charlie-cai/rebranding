@@ -139,7 +139,7 @@ export class FigmaUtil {
             rebranding.groups.push({
                 name: 'XG Brand Identity',
                 colors: [{
-                    name: 'background-valueprop',
+                    name: 'background-valueProp',
                     light: 'na',
                     dark: 'blue-80',
                     description: 'Specialty colour only to be used in onboarding. It’s taken from the XG Brand Identity - Primary Colour, ‘Xero Go Blue’'
