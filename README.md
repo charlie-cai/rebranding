@@ -9,6 +9,7 @@
 
 ## Commands
  1.`yarn figma:sync` or `npm run figma:sync` to fetch design figma file and generate a local `color.json` file.
+ 2.`yarn figma:output` or `npm run figma:output` to map figma file to a local `color.png` file. [When encounter error, plz run `brew install pkg-config cairo pango libpng jpeg giflib librsvg`]
 
  2.`yarn test` or `npm run test` to run all unit test cases.
 

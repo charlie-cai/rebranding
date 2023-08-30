@@ -9,3 +9,4 @@ export * from './validator.util';
 export * from './json.util';
 export * from './template.util';
 export * from './array.util';
+export * from './canvas.util';

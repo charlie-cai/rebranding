@@ -8,6 +8,7 @@ import {
 import { FigmaNode } from '../interfaces';
 import { ColorGroup, ColorJson, ColorSemantic, ColorToken } from '../models';
 import {
+    CanvasUtil,
     EnvUtil,
     HttpMethod,
     NetworkRequest,
@@ -41,7 +42,7 @@ export class FigmaUtil {
         console.log('Start fetch figma file from https://www.figma.com/file/qE9Tc51ashfgEO8QDoSSSU/Xero-Go-%7C-Design-Library?node-id=924%3A46799');
         const file = await this.fetchFile();
         const rebranding = this.parseFileJson(file);
-        FileUtil.writeToFile(JSONUtil.prettify(rebranding), Path.COLOR_JSON);
+        FileUtil.writeToFileSync(JSONUtil.prettify(rebranding), Path.COLOR_JSON);
     }
 
     private static parseFileJson(file: any): ColorJson {
@@ -134,6 +135,7 @@ export class FigmaUtil {
                 rebranding.groups.push(group);
 
             });
+
             return rebranding;
         } catch (err) {
             throw new Error('parse figma file json error, please check if figma file conform to consistent layout');
@@ -159,5 +161,10 @@ export class FigmaUtil {
     static sanitizeColorName(name: string): string {
         // make lowercased and remove all white space
         return name.toLowerCase().replace(/\s/g, '');
+    }
+
+    static output() {
+        const colorJson = FileUtil.readFileAsJsonSync(Path.COLOR_JSON);
+        CanvasUtil.makeImage(colorJson);
     }
 }

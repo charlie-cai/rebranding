@@ -26,10 +26,10 @@ export class IOSService implements Service {
         const rebranding_colors = await this.eta.renderFile(Path.IOS_REBRANDING_COLORS_TEMPLATE_PATH, this.data);
         const test_file = await this.eta.renderFile(Path.IOS_TEST_TEMPLATE_PATH, this.data);
 
-        FileUtil.writeToFile(color_rebrandings_extension, Path.IOS_COLOR_REBRANDINGS_EXTENSION_OUTPUT_PATH);
-        FileUtil.writeToFile(uicolor_rebrandings_extension, Path.IOS_UICOLOR_REBRANDINGS_EXTENSION_OUTPUT_PATH);
-        FileUtil.writeToFile(rebranding_colors, Path.IOS_REBRANDING_COLORS_OUTPUT_PATH);
-        FileUtil.writeToFile(test_file, Path.IOS_TEST_OUTPUT_PATH);
+        FileUtil.writeToFileSync(color_rebrandings_extension, Path.IOS_COLOR_REBRANDINGS_EXTENSION_OUTPUT_PATH);
+        FileUtil.writeToFileSync(uicolor_rebrandings_extension, Path.IOS_UICOLOR_REBRANDINGS_EXTENSION_OUTPUT_PATH);
+        FileUtil.writeToFileSync(rebranding_colors, Path.IOS_REBRANDING_COLORS_OUTPUT_PATH);
+        FileUtil.writeToFileSync(test_file, Path.IOS_TEST_OUTPUT_PATH);
 
         await this.makeAssetsFolderContent(this.eta, this.data);
     }
@@ -65,7 +65,7 @@ export class IOSService implements Service {
     private async makeAssetsFolderContent(eta: EtaConfig, data: TemplateDataInput) {
         this.makeAssetsFolder();
 
-        await FileUtil.copyFileTo(`templates/${Path.IOS_REBRANDING_XCASSETS_FOLDER_CONTENTS_JSON_TEMPLATE_PATH}`, Path.IOS_REBRANDING_XCASSETS_CONTENTS_JSON_PATH);
+        await FileUtil.copyFileToAsync(`templates/${Path.IOS_REBRANDING_XCASSETS_FOLDER_CONTENTS_JSON_TEMPLATE_PATH}`, Path.IOS_REBRANDING_XCASSETS_CONTENTS_JSON_PATH);
         data.semantic_colors.forEach((semantic_color: ColorSemantic) => {
             this.makeColorAsset(semantic_color.name);
 
@@ -85,6 +85,6 @@ export class IOSService implements Service {
 
     private async makeColorContentsJson(eta: EtaConfig, color: IOSColorResource, name: string) {
         const color_contents_json = await eta.renderFile(Path.IOS_REBRANDING_XCASSETS_COLOR_CONTENTS_JSON_TEMPLATE_PATH, color);
-        FileUtil.writeToFile(color_contents_json, `${Path.IOS_REBRANDING_XCASSETS_PATH}/${name}.colorset/Contents.json`);
+        FileUtil.writeToFileSync(color_contents_json, `${Path.IOS_REBRANDING_XCASSETS_PATH}/${name}.colorset/Contents.json`);
     }
 }
