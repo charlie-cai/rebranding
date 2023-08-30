@@ -23,8 +23,8 @@ export class AndroidService implements Service {
         const generatedPalette = await this.eta.renderFile(Path.ANDROID_COLOR_PALETTE_TEMPLATE_PATH, this.data);
         const generatedColors = await this.eta.renderFile(Path.ANDROID_COLORS_TEMPLATE_PATH, this.data);
 
-        FileUtil.writeToFile(generatedPalette, Path.ANDROID_COLOR_PALETTE_OUTPUT_PATH);
-        FileUtil.writeToFile(generatedColors, Path.ANDROID_COLORS_OUTPUT_PATH);
+        FileUtil.writeToFileSync(generatedPalette, Path.ANDROID_COLOR_PALETTE_OUTPUT_PATH);
+        FileUtil.writeToFileSync(generatedColors, Path.ANDROID_COLORS_OUTPUT_PATH);
     }
 
     override() {

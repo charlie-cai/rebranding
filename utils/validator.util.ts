@@ -1,7 +1,20 @@
+const TOKEN_NAME_WHITE_LIST = [
+    'na',
+    'transparent'
+]
+
+const GROUP_NAME_WHITE_LIST = [
+    'XG Brand Identity'
+]
+
+const HEX_WHITE_LIST = [
+    '#Transparent'
+]
+
 export class ValidatorUtil {
 
     static isValidHex(hex: string): boolean {
-        if (hex == '#Transparent') {
+        if (HEX_WHITE_LIST.includes(hex)) {
             return true;
         }
         const regex = new RegExp(/^#([0-9a-f]{6})$/i);
@@ -9,7 +22,7 @@ export class ValidatorUtil {
     }
 
     static isValidColorTokenName(name: string): boolean {
-        if (name == 'transparent') {
+        if (TOKEN_NAME_WHITE_LIST.includes(name)) {
             return true;
         }
 
@@ -30,6 +43,9 @@ export class ValidatorUtil {
     }
 
     static isValidColorGroupName(name: string): boolean {
+        if (GROUP_NAME_WHITE_LIST.includes(name)) {
+            return true;
+        }
         const isNoSpace = !name.includes(' ');
         const isNotContainHyphen = (name.match(/-/g) || []).length <= 0;
         const isAllLowercase = name === name.toLowerCase();

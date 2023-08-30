@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 export class FileUtil {
-    static readFile(path: string): Promise<string> {
+    static readFileAsync(path: string): Promise<string> {
         return new Promise<string>(function (resolve, reject) {
             fs.readFile(path, 'utf8', (err: any, data: any) => {
                 if (err) reject(err);
@@ -10,16 +10,24 @@ export class FileUtil {
         });
     }
 
-    static async readFileAsJson(path: string): Promise<any> {
-        const data = await this.readFile(path);
+    static async readFileAsJsonAsync(path: string): Promise<any> {
+        const data = await this.readFileAsync(path);
         return JSON.parse(data);
     }
 
-    static writeToFile(content: string, fileName: string): void {
+    static readFileSync(path: string): string {
+        return fs.readFileSync(path);
+    }
+
+    static readFileAsJsonSync(path: string): any {
+        return JSON.parse(fs.readFileSync(path));
+    }
+
+    static writeToFileSync(content: string, fileName: string): void {
         fs.writeFileSync(fileName, content, 'utf-8');
     }
 
-    static copyFileTo(from: string, to: string): Promise<string> {
+    static copyFileToAsync(from: string, to: string): Promise<string> {
         return new Promise<string>(function (resolve, reject) {
             fs.copyFile(from, to, (err: any, data: any) => {
                 if (err) reject(err);

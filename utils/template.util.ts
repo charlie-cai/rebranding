@@ -15,7 +15,7 @@ export class TemplateUtil {
     static async makeDataInputFromColorJson(isIOS: boolean): Promise<TemplateDataInput> {
         eta.configure({ views: path.join(__dirname, '../templates') });
 
-        const color_json = await FileUtil.readFileAsJson(Path.COLOR_JSON);
+        const color_json = await FileUtil.readFileAsJsonAsync(Path.COLOR_JSON);
         const color_json_object = plainToInstance(ColorJson, color_json);
 
         const errors = await validate(color_json_object);

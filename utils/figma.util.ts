@@ -8,6 +8,7 @@ import {
 import { FigmaNode } from '../interfaces';
 import { ColorGroup, ColorJson, ColorSemantic, ColorToken } from '../models';
 import {
+    CanvasUtil,
     EnvUtil,
     HttpMethod,
     NetworkRequest,
@@ -17,7 +18,7 @@ import { FileUtil } from './file.util';
 import { JSONUtil } from './json.util';
 
 export class FigmaUtil {
-    static searchByNodeIdArray(node: FigmaNode, nodeIdArray: string[]): FigmaNode | null {
+    static searchByNodeIdPath(node: FigmaNode, nodeIdArray: string[]): FigmaNode | null {
         nodeIdArray.forEach((nodeId: string) => {
             node = node.children.find((node: FigmaNode) => node.id === nodeId)
             if (node) {
@@ -27,7 +28,7 @@ export class FigmaUtil {
         return node;
     }
 
-    static searchByChildrenIndexArray(node: FigmaNode, childrenIndexes: number[]): FigmaNode | null {
+    static searchByChildrenIndexPath(node: FigmaNode, childrenIndexes: number[]): FigmaNode | null {
         childrenIndexes.forEach((childrenIndex: number) => {
             if (childrenIndex + 1 > node.children.length) {
                 return null;
@@ -41,22 +42,30 @@ export class FigmaUtil {
         console.log('Start fetch figma file from https://www.figma.com/file/qE9Tc51ashfgEO8QDoSSSU/Xero-Go-%7C-Design-Library?node-id=924%3A46799');
         const file = await this.fetchFile();
         const rebranding = this.parseFileJson(file);
-        FileUtil.writeToFile(JSONUtil.prettify(rebranding), Path.COLOR_JSON);
+        FileUtil.writeToFileSync(JSONUtil.prettify(rebranding), Path.COLOR_JSON);
     }
 
     private static parseFileJson(file: any): ColorJson {
         console.log('Start parse figma file to color.json');
         try {
-            const page = FigmaUtil.searchByNodeIdArray(file.document, [Config.PAGE_ID]);
 
-            const color_groups = FigmaUtil.searchByNodeIdArray(page, ['924:46799', '924:47720', '1842:106647', '1842:106648'])
+            // Locate Colour Palette PAGE
+            const page = FigmaUtil.searchByNodeIdPath(file.document, [Config.PAGE_ID]);
+
+            // Locate Colour Group by node id sequence
+            /*
+                "id": "924:46799", "name": "Colour Palette"
+                "id": "924:47720", "name": "Content"
+                "id": "1842:106647", "name": "Complete Xero Go Colour Palette"
+                "id": "1842:106648", "name": "Frame 4097"
+            */
+            const nodeIdPathToColorGroup = ['924:46799', '924:47720', '1842:106647', '1842:106648'];
+            const color_groups = FigmaUtil.searchByNodeIdPath(page, nodeIdPathToColorGroup)
                 .children.filter((color_group: FigmaNode) => {
                     return color_group.type === FigmaNodeType.Frame;
                 });
 
-            // Remove last additional design and native UI colours (not needed for dev) block
-            color_groups.pop();
-
+            // Generate Color Group
             const rebranding: ColorJson = { groups: [], tokens: [] };
             color_groups.forEach((color_group: FigmaNode) => {
 
@@ -73,18 +82,18 @@ export class FigmaUtil {
                 let color_token_name_index = 0;
 
                 color_group.children.forEach((semantic_color: ColorSemantic) => {
-                    const semantic_color_name = FigmaUtil.sanitizeColorName(FigmaUtil.searchByChildrenIndexArray(semantic_color, [0, 0, 0, 0, 0])
+                    const semantic_color_name = FigmaUtil.sanitizeColorName(FigmaUtil.searchByChildrenIndexPath(semantic_color, [0, 0, 0, 0, 0])
                         .characters);
-                    const semantic_color_description = FigmaUtil.searchByChildrenIndexArray(semantic_color, [0, 0, 1, 0])
+                    const semantic_color_description = FigmaUtil.searchByChildrenIndexPath(semantic_color, [0, 0, 1, 0])
                         .characters;
-                    const semantic_color_light_array = FigmaUtil.searchByChildrenIndexArray(semantic_color, [0, 0, 2])
+                    const semantic_color_light_array = FigmaUtil.searchByChildrenIndexPath(semantic_color, [0, 0, 2])
                         .characters.split('\n');
                     let semantic_color_light_name = FigmaUtil.sanitizeColorName(semantic_color_light_array.length > 1 ? semantic_color_light_array[1] : `${color_token_name_prefix}-${color_token_name_index}`);
                     if (semantic_color_light_array.length <= 1) {
                         color_token_name_index += 1;
                     }
                     const semantic_color_light_hex = semantic_color_light_array[0];
-                    const semantic_color_dark_array = FigmaUtil.searchByChildrenIndexArray(semantic_color, [1, 0, 2])
+                    const semantic_color_dark_array = FigmaUtil.searchByChildrenIndexPath(semantic_color, [1, 0, 2])
                         .characters.split('\n');
                     let semantic_color_dark_name = FigmaUtil.sanitizeColorName(semantic_color_dark_array.length > 1 ? semantic_color_dark_array[1] : `${color_token_name_prefix}-${color_token_name_index}`);
                     if (semantic_color_dark_array.length <= 1) {
@@ -122,10 +131,26 @@ export class FigmaUtil {
                         dark: semantic_color_dark_name
                     });
                 });
-
                 rebranding.groups.push(group);
-
             });
+
+            // Handle XG Brand Identity
+            // I need to handle this part manaully here cuz XG Brand Identity is not a standard color palette we follow for Xero go
+            rebranding.groups.push({
+                name: 'XG Brand Identity',
+                colors: [{
+                    name: 'background-valueprop',
+                    light: 'na',
+                    dark: 'blue-80',
+                    description: 'Specialty colour only to be used in onboarding. It’s taken from the XG Brand Identity - Primary Colour, ‘Xero Go Blue’'
+                }]
+            });
+
+            rebranding.tokens.push({
+                name: 'na',
+                hex:'#BBF3FD'
+            });
+
             return rebranding;
         } catch (err) {
             throw new Error('parse figma file json error, please check if figma file conform to consistent layout');
@@ -151,5 +176,10 @@ export class FigmaUtil {
     static sanitizeColorName(name: string): string {
         // make lowercased and remove all white space
         return name.toLowerCase().replace(/\s/g, '');
+    }
+
+    static snapshot() {
+        const colorJson = FileUtil.readFileAsJsonSync(Path.COLOR_JSON);
+        CanvasUtil.makeImage(colorJson);
     }
 }
