@@ -1,5 +1,7 @@
 package com.xero.lite.designkit.theme
 
+import androidx.compose.material.Colors
+import androidx.compose.material.lightColors
 import androidx.compose.ui.graphics.Color
 
 @Suppress("LongParameterList")
@@ -7,19 +9,45 @@ class LiteColors internal constructor(
 <% it.semantic_colors.forEach(function(semantic_color){ %>
     val <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %>: Color,
 <% }) %>
+    val material: Colors
 )
 
-@SuppressLint("WrongColorUsage")
-internal val LiteColorsLight= LiteColors(
+internal val LiteColorsLight = LiteColors(
 <% it.semantic_colors.forEach(function(semantic_color){ %>
     <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %> = LiteColorPalette.<%= it.func.camelCaseFromHyphenCase(semantic_color.light) %>,
 <% }) %>
+    material = lightColors(
+        primary = LiteColorPalette.blue80,
+        primaryVariant = LiteColorPalette.blue80,
+        secondary = LiteColorPalette.blue50,
+        secondaryVariant = LiteColorPalette.blue80,
+        background = LiteColorPalette.neutral0,
+        surface = LiteColorPalette.neutral05,
+        error = LiteColorPalette.red60,
+        onPrimary = LiteColorPalette.neutral0,
+        onSecondary = LiteColorPalette.neutral0,
+        onBackground = LiteColorPalette.blue80,
+        onSurface = LiteColorPalette.blue80,
+        onError = LiteColorPalette.neutral0,
+    )
 )
 
-@SuppressLint("WrongColorUsage")
-internal val LiteColorsDark= LiteColors(
+internal val LiteColorsDark = LiteColors(
 <% it.semantic_colors.forEach(function(semantic_color){ %>
     <%= it.func.camelCaseFromHyphenCase(semantic_color.name) %> = LiteColorPalette.<%= it.func.camelCaseFromHyphenCase(semantic_color.dark)%>,
 <% }) %>
+    material = lightColors(
+        primary = LiteColorPalette.neutral0,
+        primaryVariant = LiteColorPalette.neutral0,
+        secondary = LiteColorPalette.blue30,
+        secondaryVariant = LiteColorPalette.neutral0,
+        background = LiteColorPalette.neutral90,
+        surface = LiteColorPalette.neutral80,
+        error = LiteColorPalette.red20,
+        onPrimary = LiteColorPalette.neutral90,
+        onSecondary = LiteColorPalette.neutral90,
+        onBackground = LiteColorPalette.neutral0,
+        onSurface = LiteColorPalette.neutral0,
+        onError = LiteColorPalette.neutral90,
+    )
 )
-

@@ -1,5 +1,4 @@
 const TOKEN_NAME_WHITE_LIST = [
-    'na',
     'transparent'
 ]
 

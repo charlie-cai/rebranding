@@ -140,14 +140,14 @@ export class FigmaUtil {
                 name: 'XG Brand Identity',
                 colors: [{
                     name: 'background-valueProp',
-                    light: 'na',
+                    light: 'turquoise-10',
                     dark: 'blue-80',
                     description: 'Specialty colour only to be used in onboarding. It’s taken from the XG Brand Identity - Primary Colour, ‘Xero Go Blue’'
                 }]
             });
 
             rebranding.tokens.push({
-                name: 'na',
+                name: 'turquoise-10',
                 hex:'#BBF3FD'
             });
 
