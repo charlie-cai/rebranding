@@ -6,7 +6,6 @@ export enum Path {
     IOS_REBRANDING_COLORS_TEMPLATE_PATH = 'iOS/GoColor.eta',
     IOS_REBRANDING_XCASSETS_COLOR_CONTENTS_JSON_TEMPLATE_PATH = 'iOS/Contents.eta',
     IOS_REBRANDING_XCASSETS_FOLDER_CONTENTS_JSON_TEMPLATE_PATH = 'iOS/Contents.json',
-    IOS_TEST_TEMPLATE_PATH = 'iOS/ColorExtensionSpec.eta',
     IOS_COLOR_REBRANDINGS_EXTENSION_OUTPUT_PATH = 'outputs/iOS/sources/Color+Go.swift',
     IOS_UICOLOR_REBRANDINGS_EXTENSION_OUTPUT_PATH = 'outputs/iOS/sources/UIColor+Go.swift',
     IOS_REBRANDING_COLORS_OUTPUT_PATH = 'outputs/iOS/sources/GoColor.swift',
